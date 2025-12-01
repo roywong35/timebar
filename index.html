@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timebar</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+
+  <body>
+    <div id="timer-container">
+      <div id="drag-handle" data-tauri-drag-region></div>
+      <div id="progress-bar"></div>
+      <button id="start-pause" title="Start (PageUp)">▶</button>
+      <div id="timer-display">03:00</div>
+      <button id="reset" title="Reset (PageDown)">↻</button>
+    </div>
+  </body>
+</html>

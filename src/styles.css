@@ -1,0 +1,315 @@
+:root {
+  --bar-color: linear-gradient(90deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+  --background-color: transparent;
+  --text-color: #ffffff;
+  --control-bg: rgba(255, 255, 255, 0.1);
+  --control-hover: rgba(255, 255, 255, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  background: transparent;
+}
+
+#timer-container {
+  width: 400px;
+  height: 48px;
+  position: relative;
+  background: var(--background-color);
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#timer-container:hover {
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+#drag-handle {
+  position: absolute;
+  top: 0;
+  left: 45px;
+  right: 45px;
+  height: 100%;
+  z-index: 1;
+  cursor: move;
+}
+
+/* Progress bar */
+#progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--bar-color);
+  transform-origin: right;
+  transition: transform 0.3s ease-out;
+  z-index: 1;
+  will-change: transform;
+  box-shadow: none;
+}
+
+/* Enhanced timer display */
+#timer-display {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: 3px;
+  font-variant-numeric: tabular-nums;
+  transition: all 0.3s ease;
+}
+
+/* Glow effect when timer is running */
+.timer-running #timer-display {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+/* Enhanced progress bar animation when running */
+.timer-running #progress-bar {
+  transition: transform 1s linear;
+  box-shadow: none;
+}
+
+/* Fancy buttons with glassmorphism */
+#start-pause,
+#reset {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--text-color);
+  padding: 7px 12px;
+  font-size: 17px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  pointer-events: auto;
+  box-shadow: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#start-pause {
+  left: 8px;
+}
+
+#reset {
+  right: 8px;
+}
+
+#start-pause:hover,
+#reset:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: none;
+}
+
+#start-pause:active,
+#reset:active {
+  transform: translateY(-50%) scale(0.95);
+  box-shadow: none;
+}
+
+/* Fade out buttons when timer is running */
+/* Buttons remain visible and clickable when timer is running */
+.timer-running #start-pause,
+.timer-running #reset {
+  opacity: 0.6;
+  transform: translateY(-50%);
+}
+
+.timer-running #start-pause:hover,
+.timer-running #reset:hover {
+  opacity: 1;
+}
+
+/* Enhanced pulse animation when timer completes */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: none;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(74, 144, 226, 0.8);
+    transform: scale(1.02);
+  }
+}
+
+.timer-complete {
+  animation: pulse 0.8s ease-in-out infinite;
+  border-color: rgba(74, 144, 226, 0.6);
+}
+
+.timer-complete #timer-display {
+  animation: textPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5),
+                 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Edit mode styles with enhanced glow */
+.time-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-align: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  z-index: 15;
+  letter-spacing: 3px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  caret-color: var(--text-color);
+  font-variant-numeric: tabular-nums;
+  animation: inputPulse 2s ease-in-out infinite;
+}
+
+@keyframes inputPulse {
+  0%, 100% {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5),
+                 0 0 15px rgba(74, 144, 226, 0.5);
+  }
+}
+
+.time-input::selection {
+  background: rgba(74, 144, 226, 0.6);
+  text-shadow: none;
+}
+
+.edit-mode #timer-container {
+  box-shadow: 0 0 20px rgba(74, 144, 226, 0.8);
+  border-color: rgba(74, 144, 226, 0.8);
+  animation: editGlow 2s ease-in-out infinite;
+}
+
+@keyframes editGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(74, 144, 226, 1);
+  }
+}
+
+.edit-mode #progress-bar {
+  opacity: 0.25;
+  filter: blur(2px);
+}
+
+/* Hide buttons in edit mode */
+.edit-mode #start-pause,
+.edit-mode #reset {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.8);
+}
+
+/* Add subtle background pattern */
+#timer-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    transparent 1px,
+    transparent 2px,
+    rgba(255, 255, 255, 0.02) 3px
+  );
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* Special styling for transparent theme */
+.theme-transparent #progress-bar {
+  /* Use a thin border instead of solid color */
+  background: transparent !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+  backdrop-filter: blur(10px);
+}
+
+.theme-transparent #timer-display {
+  /* Make text fill transparent, only show thin outline */
+  color: transparent !important;
+  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.5);
+  text-shadow: none;
+}
+
+.theme-transparent #start-pause,
+.theme-transparent #reset {
+  opacity: 0.4;
+}
+
+.theme-transparent #start-pause:hover,
+.theme-transparent #reset:hover {
+  opacity: 0.7;
+}
+
+.theme-transparent #timer-container {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}

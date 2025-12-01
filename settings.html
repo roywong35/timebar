@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customize Presets - Timebar</title>
+  <link rel="stylesheet" href="/src/settings.css">
+</head>
+<body>
+  <div class="settings-container">
+    <div class="settings-header">
+      <h1>Customize Preset Times</h1>
+      <p class="subtitle">Create quick-access timer presets</p>
+    </div>
+
+    <div id="presets-list" class="presets-section">
+      <!-- Preset items will be added dynamically here -->
+    </div>
+
+    <button id="add-preset-btn" class="add-btn">
+      <span class="plus-icon">+</span>
+      Add New Preset
+    </button>
+
+    <div class="help-text">
+      <p>💡 <strong>Format:</strong> Enter time as HH:MM:SS (e.g., 01:30:00 for 1.5 hours)</p>
+      <p>💡 <strong>Tip:</strong> Drag to reorder presets (coming soon!)</p>
+    </div>
+
+    <div class="button-group">
+      <button id="cancel-btn" class="secondary-btn">Cancel</button>
+      <button id="save-btn" class="primary-btn">Save & Close</button>
+    </div>
+  </div>
+
+  <script type="module" src="/src/settings.ts"></script>
+</body>
+</html>
