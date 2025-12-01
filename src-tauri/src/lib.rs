@@ -196,6 +196,7 @@ pub fn run() {
 
             let _tray = tauri::tray::TrayIconBuilder::with_id("main-tray")
                 .icon(app.default_window_icon().unwrap().clone())
+                .tooltip("Timebar")
                 .menu(&tray_menu)
                 .on_menu_event(move |app, event| {
                     println!("Tray menu event: {}", event.id().as_ref());

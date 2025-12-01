@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "timebar",
+  "productName": "Timebar",
   "version": "0.1.0",
   "identifier": "com.wroy1.timebar",
   "build": {
