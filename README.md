@@ -37,6 +37,7 @@ A sleek, minimalist timer application that lives on your Windows taskbar. Built 
 - **Global Keyboard Shortcuts**:
   - `PageUp`: Start/Pause timer (works even when window is not focused)
   - `PageDown`: Reset timer
+  - `End`: Show timer window (brings timer to front when taskbar covers it)
 - **Custom Time Input**: Enter any time in HH:MM:SS format inline
 
 ### 🎛️ Smart UI
@@ -77,8 +78,8 @@ npm run tauri build
 ```
 
 The installer will be created at:
-- **MSI Installer**: `src-tauri/target/release/bundle/msi/timebar_0.1.0_x64_en-US.msi`
-- **Portable EXE**: `src-tauri/target/release/timebar.exe`
+- **MSI Installer**: `src-tauri/target/release/bundle/msi/Timebar_0.1.0_x64_en-US.msi`
+- **Portable EXE**: `src-tauri/target/release/Timebar.exe`
 
 ## 📖 Usage Guide
 
@@ -86,8 +87,9 @@ The installer will be created at:
 
 1. **Start/Pause**: Click the ▶️/⏸ button or press `PageUp`
 2. **Reset**: Click the 🔄 button or press `PageDown`
-3. **Custom Time**: Right-click tray → "Custom Time" → Enter HH:MM:SS format
-4. **Switch Modes**: Right-click tray → "Switch Mode"
+3. **Show Timer**: Press `End` to bring timer window to front (useful when taskbar covers it)
+4. **Custom Time**: Right-click tray → "Custom Time" → Enter HH:MM:SS format
+5. **Switch Modes**: Right-click tray → "Switch Mode"
 
 ### Setting Up Presets
 
@@ -111,6 +113,7 @@ The installer will be created at:
 |-----|--------|
 | `PageUp` | Start/Pause timer (global - works anywhere) |
 | `PageDown` | Reset timer (global - works anywhere) |
+| `End` | Show timer window (global - brings timer to front) |
 | `Enter` | Save when in custom time edit mode |
 | `Escape` | Cancel when in custom time edit mode |
 

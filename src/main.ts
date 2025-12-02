@@ -394,6 +394,31 @@ async function registerShortcuts() {
       console.error("Failed to register PageDown:", err);
     }
     
+    // Check and register End for show timer
+    try {
+      const endRegistered = await isRegistered("End");
+      console.log("End already registered?", endRegistered);
+      
+      if (!endRegistered) {
+        await register("End", (event) => {
+          console.log("End GLOBAL shortcut triggered!", event);
+          // Only trigger on key press, not release
+          if (event.state === "Pressed") {
+            showTimerWindow();
+          }
+        });
+        console.log("✓ End global shortcut registered successfully");
+        
+        // Verify it was registered
+        const verifyEnd = await isRegistered("End");
+        console.log("End registration verified:", verifyEnd);
+      } else {
+        console.log("End already registered (skipping)");
+      }
+    } catch (err) {
+      console.error("Failed to register End:", err);
+    }
+    
     console.log("Global shortcuts setup complete");
   } catch (error) {
     console.error("Error in registerShortcuts:", error);
@@ -430,6 +455,10 @@ function setupEventListeners() {
       e.preventDefault();
       console.log("PageDown pressed - resetting timer");
       resetTimer();
+    } else if (e.code === "End") {
+      e.preventDefault();
+      console.log("End pressed - showing timer window");
+      showTimerWindow();
     }
   });
   
